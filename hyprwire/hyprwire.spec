@@ -2,7 +2,7 @@
 
 Name:           hyprwire
 Version:        0.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hyprland wire protocol library
 
 License:        BSD-3-Clause
@@ -49,5 +49,8 @@ Headers, pkg-config files and the hyprwire-scanner code generator for %{name}.
 %{_libdir}/cmake/hyprwire-scanner/
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 0.3.1-2
+- Rebuild: an install from arcaneon/arcos had the same version, built against its libraries
+
 * Sun Oct 18 2026 Jari Lehtinen <jari@feature.fi> - 0.3.1-1
 - Initial package for the Nightdrive COPR

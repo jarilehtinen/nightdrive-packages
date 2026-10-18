@@ -2,7 +2,7 @@
 
 Name:           hyprlock
 Version:        0.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Screen locker for Hyprland
 
 License:        BSD-3-Clause
@@ -50,5 +50,8 @@ rm -rf %{buildroot}%{_datadir}/hypr
 %{_bindir}/hyprlock
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 0.9.6-2
+- Rebuild: an install from arcaneon/arcos had the same version, built against its libraries
+
 * Sun Oct 18 2026 Jari Lehtinen <jari@feature.fi> - 0.9.6-1
 - Initial package for the Nightdrive COPR
