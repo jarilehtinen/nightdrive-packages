@@ -58,6 +58,17 @@ for p in $(grep -vE '^\s*(#|$)' build-order.txt); do
 done
 ```
 
+## Weekly checks
+
+A GitHub Actions workflow (`.github/workflows/check.yml`, Mondays, or by hand under Actions) keeps an issue open for
+each of these until the next run finds nothing:
+
+- **Upstream updates:** releases newer than the specs (`tools/check-versions.py`).
+- **Broken dependencies (aarch64 / x86_64):** packages in the COPR that can't be installed on Fedora any more
+  (`dnf repoclosure`), usually a Fedora library update that changed its soname. They need a rebuild.
+
+Nothing is rebuilt by the workflow itself.
+
 ## Updating a package
 
 1. In `<name>/<name>.spec`: the new `Version`, `Release` back to `1`, and a `%changelog` entry.

@@ -1,0 +1,60 @@
+# Weekly: upstream releases newer than the specs, and packages in the COPR whose dependencies are missing (a Fedora
+# library update that changed its soname, or a library here rebuilt without its dependants). Each finding keeps one
+# issue open until the next run finds nothing. Nothing is rebuilt automatically: that stays a decision.
+name: Check
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"     # Mondays 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  versions:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare the specs with upstream
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: tools/check-versions.py > report.md
+      - name: Report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: tools/report-issue.sh "Upstream updates" report.md "Newer upstream releases than the specs have. Update the spec (Version, Release 1, %changelog), run ./test-build.sh, push; a library's dependants may need rebuilding too (README › Updating a package)."
+
+  dependencies:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    container: registry.fedoraproject.org/fedora:44
+    steps:
+      - name: Tools
+        run: dnf -y -q install dnf5-plugins gh git
+      - uses: actions/checkout@v4
+      - name: Check the COPR's dependencies against Fedora
+        run: |
+          dnf -y -q copr enable jarilehtinen/nightdrive
+          repo=$(dnf repolist --enabled | awk '/jarilehtinen:nightdrive/ {print $1}')
+          # Only the packages that can't be installed: one "package:" block each
+          if ! dnf repoclosure --newest --check "$repo" > closure.txt 2>&1; then
+            { echo '```'; sed -n '/^package:/,$p' closure.txt; echo '```'; } > report.md
+          else
+            : > report.md
+          fi
+          cat closure.txt
+      - name: Report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          tools/report-issue.sh "Broken dependencies (${{ matrix.arch }})" report.md "Packages in the COPR that can't be installed on Fedora 44 ${{ matrix.arch }}: a library they were built against has changed. Rebuild them in build order (copr-cli build-package nightdrive --name NAME)."
