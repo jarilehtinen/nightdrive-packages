@@ -16,7 +16,7 @@ jobs:
   versions:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Compare the specs with upstream
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Tools
         run: dnf -y -q install dnf5-plugins gh git
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check the COPR's dependencies against Fedora
         run: |
           dnf -y -q copr enable jarilehtinen/nightdrive
