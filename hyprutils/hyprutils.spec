@@ -2,7 +2,8 @@
 
 Name:           hyprutils
 Version:        0.14.2
-Release:        1%{?dist}
+Epoch:          1
+Release:        2%{?dist}
 Summary:        Hyprland utilities library
 
 License:        BSD-3-Clause
@@ -18,7 +19,7 @@ Small C++ library of utilities used across the Hyprland ecosystem.
 
 %package devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Headers and pkg-config file for %{name}.
@@ -43,5 +44,8 @@ Headers and pkg-config file for %{name}.
 %{_libdir}/pkgconfig/hyprutils.pc
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 1:0.14.2-2
+- Epoch 1, as arcaneon/arcos's earlier builds had: an install from them otherwise never takes this package
+
 * Fri Oct 16 2026 Christoph Pracht - 0.14.2-1
 - Initial package

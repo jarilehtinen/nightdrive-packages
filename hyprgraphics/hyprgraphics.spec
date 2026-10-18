@@ -3,7 +3,8 @@
 
 Name:           hyprgraphics
 Version:        0.5.1
-Release:        2%{?dist}
+Epoch:          1
+Release:        3%{?dist}
 Summary:        Hyprland graphics and image utilities library
 
 License:        BSD-3-Clause
@@ -34,7 +35,7 @@ the Hyprland ecosystem.
 
 %package devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Headers and pkg-config file for %{name}.
@@ -59,6 +60,9 @@ Headers and pkg-config file for %{name}.
 %{_libdir}/pkgconfig/hyprgraphics.pc
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 1:0.5.1-3
+- Epoch 1, as arcaneon/arcos's earlier builds had: an install from them otherwise never takes this package
+
 * Sun Oct 18 2026 Christoph Pracht - 0.5.1-2
 - Rebuild: the COPR files of -1 were removed with the old epoch-1 builds
 

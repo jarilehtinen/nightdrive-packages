@@ -2,7 +2,8 @@
 
 Name:           xdg-desktop-portal-hyprland
 Version:        1.4.1
-Release:        1%{?dist}
+Epoch:          1
+Release:        2%{?dist}
 Summary:        XDG desktop portal backend for Hyprland
 
 License:        BSD-3-Clause
@@ -61,5 +62,8 @@ and a share picker for choosing what to share.
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 1:1.4.1-2
+- Epoch 1, as arcaneon/arcos's earlier builds had: an install from them otherwise never takes this package
+
 * Fri Oct 16 2026 Christoph Pracht - 1.4.1-1
 - Initial package
