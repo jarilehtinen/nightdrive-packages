@@ -1,6 +1,6 @@
 # Nightdrive packages
 
-RPM specs for the Hyprland stack that [Nightdrive](https://github.com/jarilehtinen/nightdrive) installs on Fedora,
+RPM specs for the Hyprland stack that [Nightdrive](https://github.com/nightdrive-sh/nightdrive) installs on Fedora,
 built for **aarch64** (Apple Silicon with Asahi Linux) and **x86_64** in the COPR repo
 [jarilehtinen/nightdrive](https://copr.fedorainfracloud.org/coprs/jarilehtinen/nightdrive/).
 
@@ -53,7 +53,7 @@ Setting the COPR up (once):
 ```sh
 copr-cli create nightdrive --chroot fedora-44-aarch64 --chroot fedora-44-x86_64
 for p in $(grep -vE '^\s*(#|$)' build-order.txt); do
-  copr-cli add-package-scm nightdrive --name "$p" --clone-url https://github.com/jarilehtinen/nightdrive-packages \
+  copr-cli add-package-scm nightdrive --name "$p" --clone-url https://github.com/nightdrive-sh/nightdrive-packages \
     --subdir "$p" --spec "$p.spec" --method make_srpm --webhook-rebuild on
 done
 ```
