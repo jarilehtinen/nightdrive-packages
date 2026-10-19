@@ -62,7 +62,8 @@ for path in sorted(glob.glob(os.path.join(ROOT, "*", "*.spec"))):
     if latest and key(latest) > key(version):
         behind.append(f"- **{name}** {version} → {latest} ({url})")
 
-print("\n".join(behind))
+if behind:      # nothing at all when all are current: the workflow closes the issue on an empty report
+    print("\n".join(behind))
 for e in errors:
     print("check-versions:", e, file=sys.stderr)
 sys.exit(2 if errors else 0)
