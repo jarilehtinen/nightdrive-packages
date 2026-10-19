@@ -22,7 +22,7 @@ Nightdrive's `install.sh` does this itself, with `includepkgs` limiting the repo
 | --- | --- | --- |
 | hyprutils | 0.14.2 | Shared utility library |
 | hyprwayland-scanner | 0.4.6 | Wayland protocol code generator (build tool) |
-| hyprland-protocols | 0.7.1 | Hyprland's Wayland protocol extensions |
+| hyprland-protocols | 0.8.0 | Hyprland's Wayland protocol extensions |
 | lua5.5 | 5.5.1 | Lua 5.5, for Hyprland's Lua config (Fedora has 5.4) |
 | uwsm | 0.27.1 | Universal Wayland Session Manager |
 | hyprlang | 0.6.8 | Hyprland's config language |

@@ -1,7 +1,7 @@
 # Wayland protocol definitions specific to Hyprland (global shortcuts, toplevel export, ...).
 
 Name:           hyprland-protocols
-Version:        0.7.1
+Version:        0.8.0
 Release:        1%{?dist}
 Summary:        Wayland protocol extensions for Hyprland
 
@@ -11,6 +11,8 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  cmake
+# Its CMake project declares C since 0.8.0 (nothing is compiled, but CMake checks for a compiler)
+BuildRequires:  gcc
 
 %description
 Wayland protocol extensions used by Hyprland and its portal.
@@ -37,5 +39,8 @@ Protocol XML files and pkg-config file for Hyprland's Wayland protocol extension
 %{_datadir}/pkgconfig/hyprland-protocols.pc
 
 %changelog
+* Mon Oct 19 2026 Jari Lehtinen <jari@feature.fi> - 0.8.0-1
+- 0.8.0: the workspace image capture source protocol
+
 * Fri Oct 16 2026 Christoph Pracht - 0.7.1-1
 - Initial package
