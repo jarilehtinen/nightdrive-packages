@@ -37,9 +37,11 @@ Nightdrive's `install.sh` does this itself, with `includepkgs` limiting the repo
 | hypridle | 0.1.8 | Idle daemon |
 | hyprpolkitagent | 0.2.0 | Polkit authentication agent |
 | hyprland-guiutils | 0.2.2 | Hyprland's dialogs (hyprland-dialog, update screen) |
+| ghostty | 1.3.1 | Terminal (Install › Software › Terminals): not in Fedora or on Flathub |
 
 Each lives in its own folder as `<name>/<name>.spec`. The sources are downloaded from the spec's `Source` URLs, so the
-repo holds only specs. Most of them come from the `arcaneon/arcos` COPR by Christoph Pracht (their changelogs keep his
+repo holds only specs. Ghostty's Zig dependencies can't be: `ghostty/sources.sh` fetches them when the SRPM is made, and
+the build uses Zig's own release of the version Ghostty needs (Fedora's is newer). Most of them come from the `arcaneon/arcos` COPR by Christoph Pracht (their changelogs keep his
 entries); hyprwire, hyprlock and hypridle were written here, as their arcos sources were no longer available.
 
 ## Building
