@@ -43,8 +43,8 @@ jobs:
       - uses: actions/checkout@v5
       - name: Check the COPR's dependencies against Fedora
         run: |
-          dnf -y -q copr enable jarilehtinen/nightdrive
-          repo=$(dnf repolist --enabled | awk '/jarilehtinen:nightdrive/ {print $1}')
+          dnf -y -q copr enable @nightdrive/nightdrive
+          repo=$(dnf repolist --enabled | awk '/group_nightdrive:nightdrive/ {print $1}')
           # Only the packages that can't be installed: one "package:" block each
           if ! dnf repoclosure --newest --check "$repo" > closure.txt 2>&1; then
             { echo '```'; sed -n '/^package:/,$p' closure.txt; echo '```'; } > report.md

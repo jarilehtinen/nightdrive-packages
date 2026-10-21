@@ -2,7 +2,8 @@
 
 RPM specs for the Hyprland stack that [Nightdrive](https://github.com/nightdrive-sh/nightdrive) installs on Fedora,
 built for **aarch64** (Apple Silicon with Asahi Linux) and **x86_64** in the COPR repo
-[jarilehtinen/nightdrive](https://copr.fedorainfracloud.org/coprs/jarilehtinen/nightdrive/).
+[@nightdrive/nightdrive](https://copr.fedorainfracloud.org/coprs/g/nightdrive/nightdrive/), owned by the Fedora
+Accounts group `nightdrive` (until 21.10.2026 the personal project `jarilehtinen/nightdrive`).
 
 Fedora 44 doesn't ship Hyprland, and its Hyprland libraries are too old for Hyprland 0.56. Nightdrive used the
 `arcaneon/arcos` COPR until its aarch64 builds fell behind; this repo keeps both architectures building.
@@ -10,7 +11,7 @@ Fedora 44 doesn't ship Hyprland, and its Hyprland libraries are too old for Hypr
 ## Use
 
 ```sh
-sudo dnf copr enable jarilehtinen/nightdrive
+sudo dnf copr enable @nightdrive/nightdrive
 sudo dnf install hyprland hyprlock hypridle hyprpolkitagent xdg-desktop-portal-hyprland
 ```
 
@@ -48,14 +49,15 @@ entries); hyprwire, hyprlock and hypridle were written here, as their arcos sour
 
 COPR builds each package from this repo with the `make_srpm` method (`.copr/Makefile`), in the order of
 `build-order.txt`: a line's packages need only the lines above it. A push to `main` rebuilds the packages whose
-folder changed (GitHub webhook).
+folder changed (GitHub webhook: the project's Settings › Integrations has its URL, which goes in this repo's
+Settings › Webhooks, content type `application/json`).
 
-Setting the COPR up (once):
+Setting the COPR up (once; a member of the `nightdrive` group):
 
 ```sh
-copr-cli create nightdrive --chroot fedora-44-aarch64 --chroot fedora-44-x86_64
+copr-cli create @nightdrive/nightdrive --chroot fedora-44-aarch64 --chroot fedora-44-x86_64
 for p in $(grep -vE '^\s*(#|$)' build-order.txt); do
-  copr-cli add-package-scm nightdrive --name "$p" --clone-url https://github.com/nightdrive-sh/nightdrive-packages \
+  copr-cli add-package-scm @nightdrive/nightdrive --name "$p" --clone-url https://github.com/nightdrive-sh/nightdrive-packages \
     --subdir "$p" --spec "$p.spec" --method make_srpm --webhook-rebuild on
 done
 ```
